@@ -1,46 +1,29 @@
+import { LoggerService } from '@nestjs/common';
 import {
   ArgumentsHost,
   Catch,
   ExceptionFilter,
   HttpException,
-  HttpStatus,
-  LoggerService,
-} from "@nestjs/common";
-import { HttpAdapterHost } from "@nestjs/core";
-
-import * as requestIp from "request-ip";
+} from '@nestjs/common';
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
-  constructor(
-    private readonly logger: LoggerService,
-    private readonly httpAdapterHost: HttpAdapterHost,
-  ) {}
-  catch(exception: HttpException, host: ArgumentsHost) {
-    const { httpAdapter } = this.httpAdapterHost;
+  constructor(private logger: LoggerService) {}
+  async catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
-
+    // 响应 请求对象
     const response = ctx.getResponse();
-    const request = ctx.getRequest();
+    // const request = Pctx.getRequest();
+    // http状态码
     const status = exception.getStatus();
-
-    const httpStatus =
-      exception instanceof HttpException
-        ? exception.getStatus()
-        : HttpStatus.INTERNAL_SERVER_ERROR;
-    const reponseBody = {
-      header: request.headers,
-      query: request.query,
-      body: request.body,
-      params: request.params,
+    this.logger.error(exception.message, exception.stack);
+    response.status(status).json({
+      code: status,
       timestamp: new Date().toISOString(),
-      ip: requestIp.getClientIp(request),
-      exception: exception["name"],
-      error: exception["reponse"] || "Internal Server Error",
-    };
-
-    this.logger.error("[toimc]", reponseBody);
-
-    httpAdapter.reply(response, reponseBody, httpStatus);
+      // path: request.url,
+      // method: request.method,
+      message: exception.message || exception.name,
+    });
+    // throw new Error('Method not implemented.');
   }
 }
