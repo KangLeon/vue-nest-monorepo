@@ -2,7 +2,7 @@
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-02-01 22:25:23
  * @LastEditors: JY 397879704@qq.com
- * @LastEditTime: 2024-04-04 22:01:09
+ * @LastEditTime: 2024-04-05 02:58:33
  * @FilePath: /NestWorld/src/user/user.entity.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -38,6 +38,6 @@ export class User {
   @JoinTable({name: 'user_roles'})
   roles: Roles[];
 
-  @OneToOne(() => Profile, (profile) => profile.user)
+  @OneToOne(() => Profile, (profile) => profile.user, {cascade: true})
   profile: Profile;
 }

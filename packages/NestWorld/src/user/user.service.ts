@@ -2,7 +2,7 @@
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-01-27 17:51:48
  * @LastEditors: JY 397879704@qq.com
- * @LastEditTime: 2024-04-04 21:27:56
+ * @LastEditTime: 2024-04-05 03:08:33
  * @FilePath: /NestWorld/src/user/user.service.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -53,11 +53,18 @@ export class UserService {
   }
 
   async update(id: number, user: Partial<User>) {
-    return this.userRepository.update(id, user);
+    const userTemp = await this.findProfile(id)
+    const newUser = this.userRepository.merge(userTemp, user)
+    //联合模型的更新，需要使用save方法或者queryBuilder
+    return this.userRepository.save(newUser)
+
+    //update适合单模型的更新，不适合有关系的模型更新
+    //return this.userRepository.save(id, user)
   }
 
-  remove(id: number) {
-    return this.userRepository.delete(id);
+  async remove(id: number) {
+    const user = await this.find(id)
+    return this.userRepository.remove(user);
   }
 
   findProfile(id: number) {
