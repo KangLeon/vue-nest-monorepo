@@ -1,8 +1,8 @@
 /*
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-01-27 17:51:48
- * @LastEditors: JY jitengjiao@bytedance.com
- * @LastEditTime: 2024-02-01 23:01:11
+ * @LastEditors: JY 397879704@qq.com
+ * @LastEditTime: 2024-04-04 21:09:08
  * @FilePath: /NestWorld/src/user/user.service.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -11,6 +11,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Logs } from "src/entities/logs.entity";
 import { User } from "src/entities/user.entity";
 import { Repository } from "typeorm";
+import { UserQuery } from "./dto/get-user.dto";
 
 @Injectable()
 export class UserService {
@@ -18,13 +19,14 @@ export class UserService {
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
 
-  findAll() {
+  findAll(query: UserQuery) {
+    
     return this.userRepository.find();
   }
 
-  find(username: string) {
+  find(id: number) {
     return this.userRepository.findOne({
-      where: { username },
+      where: { id },
     });
   }
 
