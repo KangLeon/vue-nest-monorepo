@@ -2,7 +2,7 @@
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-01-27 17:47:05
  * @LastEditors: JY 397879704@qq.com
- * @LastEditTime: 2024-04-04 21:08:35
+ * @LastEditTime: 2024-04-04 21:38:37
  * @FilePath: /NestWorld/src/user/user.controller.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -40,16 +40,10 @@ export class UserController {
     return this.userService.find(id);
   }
 
-  @Get()
-  getAllUsers(): any {
-    console.log("🚀 ~ UserController ~ getUsers ~ getUsers:")
-    return this.userService.findAll();
-  }
-
-  @Get()
+  @Get('getUsers')
   getUsers(@Query() query: UserQuery): any {
     console.log("🚀 ~ UserController ~ getUsers ~ query:", query)
-    return this.userService.findAll();
+    return this.userService.findAll(query);
   }
 
    @Post()
