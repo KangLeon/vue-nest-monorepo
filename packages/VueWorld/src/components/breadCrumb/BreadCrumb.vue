@@ -1,12 +1,13 @@
 <template>
-    <div class="flex flex-row items-center justify-center">
+    <div class="flex flex-row ">
         <a-menu-item v-for="item in breadcrumbItems" :key="item.key">
             <template v-if="item.isLink">
-                <router-link :to="item.path" class="hover:bg-gray-200 p-2">{{ item.title }}</router-link>
+                <router-link :to="item.path" class="hover:bg-gray-200 p-2 font-semibold text-blue-500">{{
+                    item.title }}</router-link>
             </template>
-            <template v-else class="flex flex-row items-center justify-center">
+            <template v-else >
                 <span class="p-2">/</span>
-                <span class="p-2">{{ item.title }}</span>
+                <span class="p-2 font-semibold">{{ item.title }}</span>
             </template>
         </a-menu-item>
     </div>
