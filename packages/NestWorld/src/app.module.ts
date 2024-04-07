@@ -14,6 +14,7 @@ import { ConfigModule } from "@nestjs/config";
 import configuration from "./configuration";
 import * as Joi from "joi";
 import { connectionParams } from "ormconfig";
+import { AuthModule } from './auth/auth.module';
 
 @Global()
 @Module({
@@ -27,6 +28,7 @@ import { connectionParams } from "ormconfig";
     LogsModule,
     TypeOrmModule.forRoot(connectionParams),
     UserModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [Logger],
