@@ -2,7 +2,7 @@
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-01-27 17:47:05
  * @LastEditors: JY 397879704@qq.com
- * @LastEditTime: 2024-04-05 03:17:14
+ * @LastEditTime: 2024-04-08 10:58:56
  * @FilePath: /NestWorld/src/user/user.controller.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -13,14 +13,20 @@ import {
   Get,
   Inject,
   LoggerService,
+  ParseIntPipe,
   Post,
   Query,
+  Req,
+  UseGuards,
 } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { ConfigService } from "@nestjs/config";
 import { WINSTON_MODULE_NEST_PROVIDER } from "nest-winston";
 import { User } from "src/entities/user.entity";
 import { UserQuery } from "./dto/get-user.dto";
+import { CreateUserPipe } from "./pipes/create-user.pipe";
+import { CreateUserDto } from "./dto/create-user.dto";
+import { AuthGuard } from "@nestjs/passport";
 
 @Controller("user")
 export class UserController {
@@ -47,7 +53,7 @@ export class UserController {
   }
 
    @Post('addUser')
-   addUser(@Body() dto: any): any {
+   addUser(@Body(CreateUserPipe) dto: CreateUserDto): any {
      const user = dto as User
      console.log("🚀 ~ UserController ~ addUser ~ user:", user)
      return this.userService.create(user)
@@ -65,7 +71,11 @@ export class UserController {
   // }
 
   @Get("/profile")
-  getUserProfile(@Query('id') id: any): any {
+  @UseGuards(AuthGuard('jwt'))
+  getUserProfile(@Query('id', ParseIntPipe) id: any,
+    //这里req中的user是通过AuthGuard('jwt)中的validate方法返回的
+    //准确的来说是PassportModule来添加的
+    @Req() req): any {
     console.log("🚀 ~ UserController ~ getUserProfile ~ id:", id)
     return this.userService.findProfile(id);
   }

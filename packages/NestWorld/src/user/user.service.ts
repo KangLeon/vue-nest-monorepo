@@ -47,6 +47,12 @@ export class UserService {
     });
   }
 
+  findUsername(username: string) {
+    return this.userRepository.findOne({
+      where: { username },
+    });
+  }
+
   async create(user: Partial<User>) {
     const userTmp = await this.userRepository.create(user);
     return this.userRepository.save(userTmp);
