@@ -2,7 +2,7 @@
  * @Author: JY 397879704@qq.com
  * @Date: 2024-04-03 02:28:25
  * @LastEditors: JY 397879704@qq.com
- * @LastEditTime: 2024-04-04 14:43:15
+ * @LastEditTime: 2024-04-08 17:47:00
  * @FilePath: /project/src/views/login.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -37,8 +37,12 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
-//import axios from "@/utils/axios";
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
+import { signin } from "@/api/login";
+
+interface LoginResponse { 
+    access_token: string
+}
 
 export default defineComponent({
     setup() {
@@ -48,13 +52,15 @@ export default defineComponent({
             password: '',
             isRead: false,
         })
-        const handleSubmit = (data: any) => {
-            console.log(data);
-            router.push('/home')
+        const handleSubmit = async (data: any) => {
+            console.log(data)
 
-            //axios.post("/login", data).then((res: any) => { 
-            //    console.log("登录结果" + res)
-            //})
+            const { username, password } = form
+
+            const res = await signin(username, password) as unknown as LoginResponse
+            console.log("🚀 ~ handleSubmit ~ res:", res)
+
+            router.push('/home')
         }
 
         return {
