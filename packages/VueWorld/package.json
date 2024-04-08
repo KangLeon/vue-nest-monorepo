@@ -11,20 +11,21 @@
   "dependencies": {
     "axios": "^1.6.8",
     "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "nest-world": "file:../NestWorld",
     "@arco-design/web-vue": "^2.55.1",
     "@arco-plugins/vite-vue": "^1.4.5",
     "@types/node": "^20.12.2",
     "@vitejs/plugin-vue": "^5.0.4",
     "autoprefixer": "^10.4.19",
+    "nest-world": "file:../NestWorld",
     "postcss": "^8.4.38",
-    "ts-node": "^10.9.1",
     "sass": "^1.72.0",
     "tailwindcss": "^3.4.3",
+    "ts-node": "^10.9.1",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vue-tsc": "^2.0.6"

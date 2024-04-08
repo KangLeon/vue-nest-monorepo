@@ -2,7 +2,7 @@
  * @Author: JY 397879704@qq.com
  * @Date: 2024-04-03 02:28:25
  * @LastEditors: JY 397879704@qq.com
- * @LastEditTime: 2024-04-08 17:47:00
+ * @LastEditTime: 2024-04-08 19:22:53
  * @FilePath: /project/src/views/login.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -39,6 +39,7 @@
 import { defineComponent, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { signin } from "@/api/login";
+import { useUserStore } from '@/store/user';
 
 interface LoginResponse { 
     access_token: string
@@ -47,6 +48,8 @@ interface LoginResponse {
 export default defineComponent({
     setup() {
         const router = useRouter()
+        const store = useUserStore()
+        
         const form = reactive({
             username: '',
             password: '',
@@ -58,6 +61,12 @@ export default defineComponent({
             const { username, password } = form
 
             const res = await signin(username, password) as unknown as LoginResponse
+
+            if (res.access_token) {
+                store.$patch({
+                    token: res.access_token,
+                })
+            }
             console.log("🚀 ~ handleSubmit ~ res:", res)
 
             router.push('/home')

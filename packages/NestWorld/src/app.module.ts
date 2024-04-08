@@ -1,4 +1,12 @@
 /*
+ * @Author: JY 397879704@qq.com
+ * @Date: 2024-04-04 18:09:40
+ * @LastEditors: JY 397879704@qq.com
+ * @LastEditTime: 2024-04-08 20:22:58
+ * @FilePath: /vue-nest-monorepo/packages/NestWorld/src/app.module.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
+/*
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-01-27 17:00:31
  * @LastEditors: JY 397879704@qq.com
@@ -17,6 +25,7 @@ import { connectionParams } from "ormconfig";
 import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from "@nestjs/core";
 import { AdminGuard } from "./guards/admin.guard";
+import { RolesModule } from './roles/roles.module';
 
 @Global()
 @Module({
@@ -31,6 +40,7 @@ import { AdminGuard } from "./guards/admin.guard";
     TypeOrmModule.forRoot(connectionParams),
     UserModule,
     AuthModule,
+    RolesModule,
   ],
   controllers: [],
   providers: [
