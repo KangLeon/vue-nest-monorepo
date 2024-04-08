@@ -2,11 +2,11 @@
  * @Author: JY 397879704@qq.com
  * @Date: 2024-04-07 15:18:52
  * @LastEditors: JY 397879704@qq.com
- * @LastEditTime: 2024-04-07 16:24:22
+ * @LastEditTime: 2024-04-08 16:58:04
  * @FilePath: /vue-nest-monorepo/packages/NestWorld/src/auth/auth.controller.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import { Body, Controller, HttpException, Post } from '@nestjs/common';
+import { Body, Controller, HttpException, Post, UseInterceptors } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignInUserDto } from './dto/signin-user.dto';
 
