@@ -26,6 +26,7 @@ import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from "@nestjs/core";
 import { AdminGuard } from "./guards/admin.guard";
 import { RolesModule } from './roles/roles.module';
+import { MenusModule } from './menus/menus.module';
 
 @Global()
 @Module({
@@ -41,6 +42,7 @@ import { RolesModule } from './roles/roles.module';
     UserModule,
     AuthModule,
     RolesModule,
+    MenusModule,
   ],
   controllers: [],
   providers: [

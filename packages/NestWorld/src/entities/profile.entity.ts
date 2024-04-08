@@ -23,10 +23,16 @@ export class Profile {
   @Column()
   gender: number;
 
-  @Column()
+  @Column({
+    type: 'varchar',
+    length: 255,
+  })
   photo: string;
 
-  @Column()
+  @Column({
+    type: 'varchar',
+    length: 255,
+  })
   address: string;
 
   @OneToOne(() => User,{ onDelete: 'CASCADE' })
