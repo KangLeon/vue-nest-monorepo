@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString, Length } from "class-validator"
-import { Roles } from "src/entities/roles.entity"
+import { Roles } from "@/entities/roles.entity"
 
 /*
  * @Author: JY 397879704@qq.com

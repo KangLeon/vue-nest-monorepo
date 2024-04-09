@@ -2,20 +2,20 @@
  * @Author: JY 397879704@qq.com
  * @Date: 2024-04-02 00:52:43
  * @LastEditors: JY 397879704@qq.com
- * @LastEditTime: 2024-04-09 00:18:14
+ * @LastEditTime: 2024-04-09 12:30:34
  * @FilePath: /NestWorld/ormconfig.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
-import { Logs } from "./src/entities/logs.entity";
-import { Profile } from "./src/entities/profile.entity";
-import { Roles } from "./src/entities/roles.entity";
-import { User } from "./src/entities/user.entity";
-import { Menus } from "./src/entities/menu.entity";
 import { DataSource, DataSourceOptions } from "typeorm";
 import * as fs from "fs";
 import * as dotenv from "dotenv";
-import { ConfigEnum } from "src/enum/config.enum";
+import { User } from "@/entities/user.entity";
+import { Profile } from "@/entities/profile.entity";
+import { Logs } from "@/entities/logs.entity";
+import { Roles } from "@/entities/roles.entity";
+import { Menus } from "@/entities/menu.entity";
+import { ConfigEnum } from "@/enum/config.enum";
 
 //通过环境变量读取不同的env文件
 function getEnv(env: string): Record<string, unknown> {
